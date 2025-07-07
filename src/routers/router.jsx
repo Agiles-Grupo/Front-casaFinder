@@ -1,27 +1,30 @@
-// src/routes/router.jsx
 import { createBrowserRouter } from "react-router-dom";
-import Dashboard from "../components/shared/Dashboard"; // Nuestro layout principal
-import ErrorPage from "./ErrorPage"; // Página de error
+import Login from "../pages/Auth/login";
+import Register from "../pages/Auth/Register";
+import ErrorPage from "./ErrorPage";
+import landlordRoutes from "./routerLandlord";
+import tenantRoutes from "./routerTenant";
 
-import Home from "../pages/Home";
-import Properties from "../pages/Properties";
-import Contracts from "../pages/Contracts";
-import Transfers from "../pages/Transfers";
-import Profile from "../pages/Profile";
-
-const router = createBrowserRouter([
+const appRouter = createBrowserRouter([
   {
     path: "/",
-    element: <Dashboard />, 
-    errorElement: <ErrorPage />, 
-    children: [
-      { path: "/", element: <Home /> },
-      { path: "propiedades", element: <Properties /> },
-      { path: "contratos", element: <Contracts /> },
-      { path: "transferencias", element: <Transfers /> },
-      { path: "perfil", element: <Profile /> },
-    ],
+    element: <Login />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/login",
+    element: <Login />,
+  },
+  {
+    path: "/register",
+    element: <Register />,
+  },
+  ...landlordRoutes,
+  ...tenantRoutes,
+  {
+    path: "*",
+    element: <ErrorPage />,
   },
 ]);
 
-export default router;
+export default appRouter;

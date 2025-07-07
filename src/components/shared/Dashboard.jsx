@@ -2,19 +2,22 @@ import React from "react";
 import Sidebar from "./Sidebar";
 import NavBar from "./Navbar";
 import { Outlet } from "react-router-dom";
+import { getUserRoleFromCache } from "../../utils/authUtils";
 import AAIChatbot from "./AAIChatbot.jsx";
 
 const Dashboard = () => {
+  const userRole = getUserRoleFromCache();
+
   return (
     <div className="flex h-screen">
+      <Sidebar userRole={userRole} />
 
-      <Sidebar />
-
-      <div className="flex-1 flex flex-col">
+      <div className="flex-1 flex flex-col overflow-y-auto">
         <NavBar />
-        <main className="p-6 flex-1 bg-white">
+        <main className="p-6 flex-1 bg-white overflow-y-auto">
           <Outlet />
-            <AAIChatbot />
+            <AAIChatbot/>
+
         </main>
       </div>
     </div>
